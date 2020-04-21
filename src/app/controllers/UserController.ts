@@ -5,25 +5,21 @@ import bcrypt from 'bcryptjs';
 import User from '../schemas/User';
 
 interface UserBody {
-  name: string,
-  email: string,
-  password: string,
+  name: string;
+  email: string;
+  password: string;
 }
 
 interface UserCreate {
-  _id: string,
+  _id: string;
 }
 
 class UserController {
   async store(req: Request, res: Response) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      email: Yup.string()
-        .email()
-        .required(),
-      password: Yup.string()
-        .required()
-        .min(6),
+      email: Yup.string().email().required(),
+      password: Yup.string().required().min(6),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -40,8 +36,11 @@ class UserController {
 
     const passwordHash = await bcrypt.hash(password, 8);
 
-    const { _id }: UserCreate = await User
-      .create({ name, email, password_hash: passwordHash });
+    const { _id }: UserCreate = await User.create({
+      name,
+      email,
+      password_hash: passwordHash,
+    });
 
     return res.json({ _id, name, email });
   }
