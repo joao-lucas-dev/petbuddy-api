@@ -1,0 +1,8 @@
+{
+  "type": "mongodb",
+  "url": "mongodb+srv://admin:petbuddyadmin@petbuddy-jf2dh.mongodb.net/petbuddy?retryWrites=true&w=majority",
+	"entities": [
+    "./src/models/*.ts"
+  ],
+	"useUnifiedTopology": true
+}

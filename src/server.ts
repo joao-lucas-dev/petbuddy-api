@@ -1,4 +1,13 @@
-import 'dotenv/config';
-import app from './app';
+import express from 'express';
+import routes from './routes';
 
-app.listen(3333);
+import './database';
+
+const app = express();
+
+app.use(express.json());
+app.use(routes);
+
+app.listen(3333, () => {
+  console.log('🚀 Server started on port 3333!');
+});
